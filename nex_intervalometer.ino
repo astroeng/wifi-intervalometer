@@ -80,6 +80,7 @@ void handleRoot() {
                   "<p>This is intended to be used with an NEX camera in bulb mode.</p>"
                   "<p>Typically I like to set the ISO around 1600 or 3200.</p>"
                   "<p><a href=\"ir?sony=740239\">ABORT! (or) Manual Shutter</a></p>" \
+                  "<p><a href=\"job\">Job Page</a></p>" \
                   "<form action=\"ir?\" method=\"GET\" id=\"img_job\">" \
                     "<div><label for=\"imgcount\">Count</label><input id=\"imgcount\" name=\"imgcount\" value=\"10\" /></div>" \
                     "<div><label for=\"imgduration\">Duration</label><input id=\"imgduration\" name=\"imgduration\" value=\"120\" /></div>" \
@@ -100,26 +101,26 @@ void handleIr() {
     else if ((server.argName(i) == "imgcount") &&
              (image_job.job_active == false)) {
       image_job.image_count = strtoul(server.arg(i).c_str(), NULL, 10);
+      
     }
     else if ((server.argName(i) == "imgduration") &&
-             (image_job.job_active == false))  {
+             (image_job.job_active == false)) {
       image_job.image_duration_ms = strtoul(server.arg(i).c_str(), NULL, 10) * 1000;
     }
     else if ((server.argName(i) == "imgactive") &&
-             (image_job.job_active == false))  {
-      image_job.job_active = (server.arg(i) == String("true")); 
+             (image_job.job_active == false)) {
+      image_job.job_active = (server.arg(i) == String("true"));
+      image_job.current_image = 0;
     }
   }
-
-  image_job.current_image = 0;
-  handleJob();
+  handleRoot();
 }
 
 void handleJob() {
   server.send(200, "text/html",
               "<html>" + 
               String(image_job.image_count) + " x " + 
-              String(image_job.image_duration_ms)/1000 + " seconds. Completed " + 
+              String(image_job.image_duration_ms/1000) + " seconds. Completed " + 
               String(image_job.current_image) + " with " + 
               String((millis() - image_job.start_time_ms)/1000) + " seconds captured on next image.</html>");
 }
