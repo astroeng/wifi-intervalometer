@@ -39,7 +39,7 @@
  *  https://github.com/astroeng/ir_intervalometer
  */
 
-/* Started with the IRServer Example. I used some inspriation from the Arduino based 
+/* Started with the IRServer Example. I used some inspiration from the Arduino based 
  * ir_intervalometer that I wrote several years ago and mushed some ideas together. 
  * Relevant credit information copied from the ESP8266 Arduino example provided below.
  *
@@ -65,8 +65,8 @@
 #include <IRsend.h>
 #include <WiFiClient.h>
 
-const char* kSsid = "sensors";
-const char* kPassword = "sensors123";
+const char* kSsid = "xxx";
+const char* kPassword = "123";
 MDNSResponder mdns;
 
 #undef HOSTNAME
